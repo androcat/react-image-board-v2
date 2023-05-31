@@ -1,0 +1,15 @@
+.imgForm {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.buttons {
+  margin: 2% 0;
+  display: flex;
+  justify-content: right;
+}
+
+.buttons button {
+  margin-left: 2%;
+}
