@@ -1,27 +1,31 @@
 import { useState } from "react";
 import "./styles/ImageFormStyles.css";
 
-export default function ImageForm() {
+export default function ImageForm({ addImg }) {
   const [imgURL, setImgURL] = useState("");
   const [imgCap, setImgCap] = useState("");
 
-  function handleURL(event) {
-    setImgURL(event.target.value);
-  }
+  function handleSubmit(event) {
+    event.preventDefault();
 
-  function handleCaption(event) {
-    setImgCap(event.target.value);
+    const newImg = {
+      url: imgURL,
+      caption: imgCap,
+    };
+    addImg(newImg);
+    setImgURL("");
+    setImgCap("");
   }
 
   return (
-    <form className="imgForm">
+    <form onSubmit={(e) => handleSubmit(e)} className="imgForm">
       <label htmlFor="imgURL">Image URL</label>
       <input
         type="url"
         name="imgURL"
         id="imgURL"
         value={imgURL}
-        onChange={handleURL}
+        onChange={(e) => setImgURL(e.target.value)}
       />
       <label htmlFor="imgCaption">Image Caption</label>
       <input
@@ -29,11 +33,18 @@ export default function ImageForm() {
         name="imgCaption"
         id="imgCaption"
         value={imgCap}
-        onChange={handleCaption}
+        onChange={(e) => setImgCap(e.target.value)}
       />
       <div className="buttons">
         {/* Add onClick to close form or reset fields to empty */}
-        <button type="button" name="cancel">
+        <button
+          onClick={() => {
+            setImgURL("");
+            setImgCap("");
+          }}
+          type="button"
+          name="cancel"
+        >
           Cancel
         </button>
         <button type="submit" value="submit">
